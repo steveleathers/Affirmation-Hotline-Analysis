@@ -1,0 +1,30 @@
+---
+title: "Affirmation Hotline Analysis"
+author: "Steve Leathers"
+date: "December 13, 2014"
+output: html_document
+---
+
+##About the Project
+In January of 2013, Lisa Ciccarello and I began work on Affirmation Hotline.
+
+Lisa is a poet and we were taking about developing a project for Open Engagement. She asked if it was possible to build a phone system that you could dial up and it would offer you an affirmation to feel better. 
+
+I ended up building a python web application using Flask and the Twilio API, kind of refactoring a hotline that used to play Ramones songs when you'd dial it up. 
+
+We each ended up recording some of the affirmations that would come out of the line when you'd dial it up, and we also created an SMS component to the hotline: If you sent a text message to the hotline, you'd get a random affirmation sent back to you.
+
+Nearly two years has passed since we started the project and the domain is about to expire, so it seemed like a good time to do a little recap and light analysis. 
+
+We only publicized the Hotline leading up to the Open Engagement conference, so you'll see most of the calls and text coming in more heavily around that weekend in April 2013. 
+
+###Analyzing Calls
+I've created and uploaded a somewhat cleaned version of the call log from Twilio. I've selected only the entries that went to the final number that we decided on (503-360-WELL), and set the start date as March 11, 2013.
+
+```{r}
+calls <- read.csv("AffHotCalls.csv", stringsAsFactors=FALSE)
+```
+
+Total, we received `r nrow(calls)` calls from `r length(unique(calls$From))` unique numbers. This  includes some testing from Lisa and myself, but since calling the hotline to test it certainly did make us feel better, I've decided to leave these values in.
+
+The average call length was `r mean(calls$Duration)` seconds.
